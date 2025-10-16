@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATLAS UI v4.0 - Live Demos | Action-Controlled ML Generation</title>
+    <meta name="description" content="Interactive demos of ATLAS UI v4.0 - The world's first ML-powered UI framework with action-controlled generation">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa, #34d399, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+            animation: slideUp 1s ease-out 0.2s both;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .tagline {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: #cbd5e1;
+            margin-bottom: 16px;
+            font-weight: 600;
+            animation: slideUp 1s ease-out 0.4s both;
+        }
+        
+        .description {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto 48px;
+            animation: slideUp 1s ease-out 0.6s both;
+        }
+        
+        /* Stats */
+        .stats {
+            display: flex;
+            gap: 48px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 48px 0;
+            animation: slideUp 1s ease-out 0.8s both;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+        
+        /* Demo Cards */
+        .demos-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 18px;
+            margin-bottom: 64px;
+        }
+        
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+        
+        .demo-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
+        }
+        
+        .demo-card:hover::before {
+            opacity: 1;
+        }
+        
+        .demo-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .demo-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e2e8f0;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .demo-description {
+            color: #94a3b8;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .demo-features {
+            list-style: none;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .demo-features li {
+            padding: 8px 0;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+        
+        .demo-features li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .demo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .demo-btn:hover {
+            transform: translateX(4px);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 80px 20px;
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 32px;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #e2e8f0;
+        }
+        
+        .feature-text {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(148, 163, 184, 0.1);
+            color: #e2e8f0;
+            padding: 16px 32px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(148, 163, 184, 0.15);
+            border-color: rgba(148, 163, 184, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            color: #64748b;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        footer a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats {
+                gap: 32px;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">🚀 ATLAS UI v4.0 - LIVE DEMOS</div>
+            <h1>Action-Controlled<br>ML Generation</h1>
+            <p class="tagline">The Future of Intelligent UI Adaptation</p>
+            <p class="description">
+                Experience the world's first UI framework where ML actions directly control layout generation.
+                No separate generators. No complex pipelines. Just pure ML intelligence.
+            </p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">5-10x</div>
+                    <div class="stat-label">Faster Convergence</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">50%</div>
+                    <div class="stat-label">Less Code</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Real-time Adaptation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Demos Section -->
+    <section class="demos-section">
+        <h2 class="section-title">Interactive Demos</h2>
+        <p class="section-subtitle">See ATLAS UI in action across different use cases</p>
+        
+        <div class="demos-grid">
+            <!-- Demo 1: Dashboard -->
+            <div class="demo-card" onclick="window.location.href='demos/1-dashboard.html'">
+                <span class="demo-icon">📊</span>
+                <h3 class="demo-title">Business Dashboard</h3>
+                <p class="demo-description">
+                    Watch ML adapt a complex analytics dashboard based on user behavior and confusion signals.
+                </p>
+                <ul class="demo-features">
+                    <li>Real-time KPI adaptation</li>
+                    <li>Confusion detection</li>
+                    <li>Dynamic layout optimization</li>
+                    <li>Multi-context learning</li>
+                </ul>
+                <a href="demos/1-dashboard.html" class="demo-btn">
+                    Launch Demo →
+                </a>
+            </div>
+            
+            <!-- Demo 2: E-commerce -->
+            <div class="demo-card" onclick="window.location.href='demos/2-ecommerce.html'">
+                <span class="demo-icon">🛍️</span>
+                <h3 class="demo-title">E-commerce Product</h3>
+                <p class="demo-description">
+                    Experience how product pages optimize themselves for conversion based on user intent.
+                </p>
+                <ul class="demo-features">
+                    <li>Intent-based layout</li>
+                    <li>Shopping behavior analysis</li>
+                    <li>A/B testing automation</li>
+                    <li>Conversion optimization</li>
+                </ul>
+                <a href="demos/2-ecommerce.html" class="demo-btn">
+                    Launch Demo →
+                </a>
+            </div>
+            
+            <!-- Demo 3: Blog/Content -->
+            <div class="demo-card" onclick="window.location.href='demos/3-blog.html'">
+                <span class="demo-icon">📝</span>
+                <h3 class="demo-title">Content & Blog</h3>
+                <p class="demo-description">
+                    See how content-heavy sites adapt for optimal readability and engagement.
+                </p>
+                <ul class="demo-features">
+                    <li>Reading pattern analysis</li>
+                    <li>Content priority shifting</li>
+                    <li>Engagement optimization</li>
+                    <li>Personalized layouts</li>
+                </ul>
+                <a href="demos/3-blog.html" class="demo-btn">
+                    Launch Demo →
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature">
+                <span class="feature-icon">🧠</span>
+                <h3 class="feature-title">Hybrid ML Engine</h3>
+                <p class="feature-text">
+                    DQN + Multi-Armed Bandits for optimal exploration-exploitation balance
+                </p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Real-time Learning</h3>
+                <p class="feature-text">
+                    Instant adaptation without page reloads or server roundtrips
+                </p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Context-Aware</h3>
+                <p class="feature-text">
+                    Separate learning per domain: dashboard, blog, ecommerce
+                </p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔄</span>
+                <h3 class="feature-title">Action-Controlled</h3>
+                <p class="feature-text">
+                    Actions directly generate layouts - no separate generator needed
+                </p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">😕</span>
+                <h3 class="feature-title">Confusion Detection</h3>
+                <p class="feature-text">
+                    Detects user confusion and adapts UI to improve clarity
+                </p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📈</span>
+                <h3 class="feature-title">Experience Replay</h3>
+                <p class="feature-text">
+                    1000-sample buffer for stable, data-efficient learning
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Build the Future?</h2>
+        <div class="cta-buttons">
+            <!-- 👇 REPLACE "YOURUSERNAME" with your GitHub username -->
+            <a href="https://github.com/victortutu-hub/atlas-ui-v4" class="btn-primary">
+                ⭐ Star on GitHub
+            </a>
+            <a href="https://github.com/victortutu-hub/atlas-ui-v4#documentation" class="btn-secondary">
+                📚 Read Docs
+            </a>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>
+            ATLAS UI v4.0 - Action-Controlled ML Generation<br>
+            Built with ❤️ by <a href="https://github.com/victortutu-hub">Luminomorphism</a> | 
+            <a href="https://github.com/victortutu-hub/atlas-ui-v4">GitHub</a> | 
+            <a href="https://github.com/victortutu-hub/atlas-ui-v4/tree/main/docs">Documentation</a>
+        </p>
+        <p style="margin-top: 16px; font-size: 12px; opacity: 0.7;">
+            © 2025 ATLAS UI Project | MIT License
+        </p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo 1: Business Dashboard | ATLAS UI v4.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .demo-header {
+            max-width: 1400px;
+            margin: 0 auto 32px;
+            padding: 24px;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 16px;
+        }
+        
+        .demo-header h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+        
+        .demo-header p {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .demo-controls select {
+            background: rgba(51, 65, 85, 0.8);
+            color: #e2e8f0;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        
+        .demo-controls button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .demo-controls button:hover {
+            transform: scale(1.05);
+        }
+        
+        .stats-panel {
+            max-width: 1400px;
+            margin: 0 auto 24px;
+            padding: 20px;
+            background: rgba(30, 41, 59, 0.4);
+            border-radius: 12px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        
+        .stat-item {
+            padding: 16px;
+            background: rgba(51, 65, 85, 0.4);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item.updated {
+            animation: pulse 0.5s ease;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); background: rgba(59, 130, 246, 0.2); }
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(148, 163, 184, 0.1);
+            color: #e2e8f0;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            transition: background 0.2s;
+        }
+        
+        .back-btn:hover {
+            background: rgba(148, 163, 184, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-btn">← Back to Home</a>
+    
+    <div class="demo-header">
+        <h1>📊 Business Dashboard Demo</h1>
+        <p>ML-powered adaptive layouts with real-time confusion detection</p>
+        
+        <div class="demo-controls">
+            <select id="goal-select">
+                <option value="kpi-focus" selected>KPI Focus</option>
+                <option value="browse">Browse Mode</option>
+            </select>
+            <select id="density-select">
+                <option value="compact">Compact</option>
+                <option value="medium" selected>Medium</option>
+                <option value="cozy">Cozy</option>
+            </select>
+            <button id="refresh-btn">🔄 Refresh Layout</button>
+        </div>
+    </div>
+    
+    <div class="stats-panel">
+        <div class="stats-grid">
+            <div class="stat-item" id="action-stat">
+                <div class="stat-label">ML Action</div>
+                <div class="stat-value" id="current-action">Initializing...</div>
+            </div>
+            <div class="stat-item" id="status-stat">
+                <div class="stat-label">Engine Status</div>
+                <div class="stat-value" id="ml-status">Loading...</div>
+            </div>
+            <div class="stat-item" id="epsilon-stat">
+                <div class="stat-label">Epsilon (ε)</div>
+                <div class="stat-value" id="epsilon">-</div>
+            </div>
+            <div class="stat-item" id="buffer-stat">
+                <div class="stat-label">Buffer Size</div>
+                <div class="stat-value" id="buffer">-</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="max-width: 1400px; margin: 0 auto;">
+        <atlas-ui-v4 
+            id="atlas-main" 
+            intent='{"domain":"dashboard","goal":"kpi-focus","density":"medium","persona":"returning","device":"desktop"}'>
+        </atlas-ui-v4>
+    </div>
+    
+    <script type="module">
+        // ✅ Import all necessary modules from /lib/
+        import '../lib/atlas-primitives.js';
+        import { AtlasUIv4 } from '../lib/atlas-ui-v4.js';
+        
+        console.log('✅ ATLAS UI v4.0 Demo initialized');
+        
+        const atlas = document.getElementById('atlas-main');
+        
+        // ✅ FIX: Function to update stats with visual feedback
+        function updateStats() {
+            try {
+                // Update ML Action with animation
+                if (atlas._lastAction !== undefined) {
+                    const actionEl = document.getElementById('current-action');
+                    const actionStatEl = document.getElementById('action-stat');
+                    
+                    const newValue = `Action ${atlas._lastAction}`;
+                    if (actionEl.textContent !== newValue) {
+                        actionEl.textContent = newValue;
+                        // Add pulse animation
+                        actionStatEl.classList.add('updated');
+                        setTimeout(() => actionStatEl.classList.remove('updated'), 500);
+                    }
+                }
+                
+                // Update Engine Status
+                if (atlas._mlEngine) {
+                    const statusEl = document.getElementById('ml-status');
+                    if (statusEl.textContent !== 'Active ✅') {
+                        statusEl.textContent = 'Active ✅';
+                        document.getElementById('status-stat').classList.add('updated');
+                        setTimeout(() => document.getElementById('status-stat').classList.remove('updated'), 500);
+                    }
+                    
+                    const stats = atlas.getMLStats();
+                    if (stats && stats.dqnStats) {
+                        // Update Epsilon
+                        const epsilonEl = document.getElementById('epsilon');
+                        const newEpsilon = stats.dqnStats.epsilon.toFixed(3);
+                        if (epsilonEl.textContent !== newEpsilon) {
+                            epsilonEl.textContent = newEpsilon;
+                            document.getElementById('epsilon-stat').classList.add('updated');
+                            setTimeout(() => document.getElementById('epsilon-stat').classList.remove('updated'), 500);
+                        }
+                        
+                        // Update Buffer
+                        const bufferEl = document.getElementById('buffer');
+                        const newBuffer = String(stats.dqnStats.bufferSize);
+                        if (bufferEl.textContent !== newBuffer) {
+                            bufferEl.textContent = newBuffer;
+                            document.getElementById('buffer-stat').classList.add('updated');
+                            setTimeout(() => document.getElementById('buffer-stat').classList.remove('updated'), 500);
+                        }
+                    }
+                } else {
+                    document.getElementById('ml-status').textContent = 'Initializing...';
+                }
+            } catch (err) {
+                console.error('Stats update error:', err);
+            }
+        }
+        
+        // ✅ FIX: Update stats immediately after render
+        const originalRender = atlas.render.bind(atlas);
+        atlas.render = function() {
+            originalRender();
+            // Update stats immediately after render
+            setTimeout(updateStats, 100); // Small delay to ensure render is complete
+        };
+        
+        // ✅ FIX: Also update stats on a slower interval (fallback)
+        setInterval(updateStats, 1000); // Reduced from 2000ms to 1000ms
+        
+        // Update intent function
+        const updateIntent = () => {
+            const intent = {
+                domain: 'dashboard',
+                goal: document.getElementById('goal-select').value,
+                density: document.getElementById('density-select').value,
+                persona: 'returning',
+                device: 'desktop',
+                accent: 'cool'
+            };
+            
+            console.log('🔄 Updating intent:', intent);
+            atlas.setAttribute('intent', JSON.stringify(intent));
+            
+            // ✅ Update stats immediately after intent change
+            setTimeout(updateStats, 200);
+        };
+        
+        // Event listeners
+        document.getElementById('refresh-btn').addEventListener('click', updateIntent);
+        document.getElementById('goal-select').addEventListener('change', updateIntent);
+        document.getElementById('density-select').addEventListener('change', updateIntent);
+        
+        // ✅ Listen to feedback button clicks for immediate update
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('[data-feedback]')) {
+                // User clicked feedback button, update stats after a short delay
+                setTimeout(updateStats, 300);
+            }
+        });
+        
+        // Wait for component to initialize
+        setTimeout(() => {
+            updateStats();
+            if (!atlas._mlEngine) {
+                console.warn('⚠️ ML Engine not initialized after 3s');
+                document.getElementById('ml-status').textContent = 'Error ❌';
+            }
+        }, 3000);
+        
+        console.log('✅ Demo controls initialized with instant stats updates');
+    </script>
+</body>
+</html>
