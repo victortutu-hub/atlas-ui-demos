@@ -10,12 +10,12 @@
 ## ⚡ QUICK START
 
 ### Option 1: GitHub Pages (Recommended)
-Visit the live demos: **[https://yourusername.github.io/atlas-ui-demos/](https://yourusername.github.io/atlas-ui-demos/)**
+Visit the live demos: **[https://victortutu-hub.github.io/atlas-ui-demos/](https://yourusername.github.io/atlas-ui-demos/)**
 
 ### Option 2: Local Server
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/atlas-ui-demos.git
+git clone https://github.com/victortutu-hub/atlas-ui-demos.git
 cd atlas-ui-demos
 
 # Start local server (Windows)
