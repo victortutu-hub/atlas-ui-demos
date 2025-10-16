@@ -217,4 +217,4 @@ If you like these demos, please:
 
 ---
 
-> **Note:** Replace `Mihai Victor` with your actual GitHub username before publishing!
+> `Mihai Victor`
