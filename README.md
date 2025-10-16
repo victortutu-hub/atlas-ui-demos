@@ -10,7 +10,7 @@
 ## ⚡ QUICK START
 
 ### Option 1: GitHub Pages (Recommended)
-Visit the live demos: **[https://victortutu-hub.github.io/atlas-ui-demos/](https://yourusername.github.io/atlas-ui-demos/)**
+Visit the live demos: **[https://victortutu-hub.github.io/atlas-ui-demos/](https://victortutu-hub.github.io/atlas-ui-demos/)**
 
 ### Option 2: Local Server
 ```bash
@@ -81,12 +81,12 @@ These aren't static demos - the ML actually learns from your interactions!
 ## 📖 Documentation
 
 **Main Library Repository:**
-[https://github.com/yourusername/atlas-ui-v4](https://github.com/yourusername/atlas-ui-v4)
+[https://github.com/victortutu-hub/atlas-ui-v4](https://github.com/victortutu-hub/atlas-ui-v4)
 
 **Documentation:**
-- [Getting Started Guide](https://github.com/yourusername/atlas-ui-v4#getting-started)
-- [API Reference](https://github.com/yourusername/atlas-ui-v4/blob/main/docs/API-REFERENCE.md)
-- [Architecture Deep Dive](https://github.com/yourusername/atlas-ui-v4/blob/main/docs/ARCHITECTURE.md)
+- [Getting Started Guide](https://github.com/victortutu-hub/atlas-ui-v4#getting-started)
+- [API Reference](https://github.com/victortutu-hub/atlas-ui-v4/blob/main/docs/API-REFERENCE.md)
+- [Architecture Deep Dive](https://github.com/victortutu-hub/atlas-ui-v4/blob/main/docs/ARCHITECTURE.md)
 
 ---
 
@@ -157,7 +157,7 @@ START.bat
 </script>
 ```
 
-See [full integration guide](https://github.com/yourusername/atlas-ui-v4#integration) for more.
+See [full integration guide](https://github.com/victortutu-hub/atlas-ui-v4#integration) for more.
 
 ---
 
@@ -196,9 +196,9 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## 🔗 Links
 
-- **Main Library:** [github.com/yourusername/atlas-ui-v4](https://github.com/yourusername/atlas-ui-v4)
-- **Live Demos:** [yourusername.github.io/atlas-ui-demos](https://yourusername.github.io/atlas-ui-demos/)
-- **Documentation:** [Atlas UI Docs](https://github.com/yourusername/atlas-ui-v4/tree/main/docs)
+- **Main Library:** [github.com/victortutu-hub/atlas-ui-v4](https://github.com/victortutu-hub/atlas-ui-v4)
+- **Live Demos:** [victortutu-hub.github.io/atlas-ui-demos](https://victortutu-hub.github.io/atlas-ui-demos/)
+- **Documentation:** [Atlas UI Docs](https://github.com/victortutu-hub/atlas-ui-v4/tree/main/docs)
 - **NPM Package:** Coming soon!
 
 ---
@@ -217,4 +217,4 @@ If you like these demos, please:
 
 ---
 
-> **Note:** Replace `yourusername` with your actual GitHub username before publishing!
+> **Note:** Replace `Mihai Victor` with your actual GitHub username before publishing!
