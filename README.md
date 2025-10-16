@@ -3,7 +3,7 @@
 **Interactive showcases of ATLAS UI's ML-powered adaptive layouts**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Demos](https://img.shields.io/badge/Demos-Live-brightgreen)](https://yourusername.github.io/atlas-ui-demos/)
+[![Demos](https://img.shields.io/badge/Demos-Live-brightgreen)](https://victortutu-hub.github.io/atlas-ui-demos/)
 
 ---
 
