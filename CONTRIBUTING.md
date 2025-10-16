@@ -34,7 +34,7 @@ If you want to add a new demo:
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/atlas-ui-v4.git
+git clone https://github.com/victortutu-hub/atlas-ui-v4.git
 cd atlas-ui-v4/atlas-ui-kit-v4.0_ML_Engine-Demo
 
 # Start local server
